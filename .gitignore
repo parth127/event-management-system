@@ -1,0 +1,12 @@
+# Node.js
+node_modules/
+.next/
+.env
+# Python
+__pycache__/
+.venv/
+*.pyc
+# Logs
+*.log
+# Others
+.DS_Store
