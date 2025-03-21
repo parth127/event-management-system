@@ -3,8 +3,12 @@
 import { useEffect, useState } from "react";
 
 import EventCard from "@/components/EventCard";
+import { Button } from "@/components/ui/button";
+import { logout } from "@/actions/auth";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -22,16 +26,42 @@ export default function Home() {
       });
   }, []);
 
+  async function handleLogout() {
+    const result = await logout();
+
+    if (result.error) {
+      console.error(result.error);
+    } else {
+      console.log(result.message);
+      router.push("/auth/login");
+    }
+  }
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <h1>Events List</h1>
-        <div className="flex flex-row gap-x-2">
-          {loading ? (
-            <p>Loading...</p>
-          ) : (
-            events.map((event) => <EventCard key={event.id} event={event} />)
-          )}
+    <div className="flex w-full h-full items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
+      <main className="h-lvh max-h-lvh border w-full">
+        <div className="flex flex-col gap-y-4 p-4">
+          <div className="flex w-full justify-end">
+            <div>
+              <Button
+                onClick={handleLogout}
+                className="cursor-pointer hover:scale-110"
+                variant="secondary"
+              >
+                Logout
+              </Button>
+            </div>
+          </div>
+          <h1>Events List</h1>
+          <div className="flex flex-row gap-x-2">
+            {loading ? (
+              <p>Loading...</p>
+            ) : (
+              events.map((event, index = 0) => (
+                <EventCard key={index} event={event} />
+              ))
+            )}
+          </div>
         </div>
       </main>
     </div>

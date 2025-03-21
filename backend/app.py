@@ -2,6 +2,8 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from neo4j_connection import Neo4jConnection
 
+from routes.auth_routes import auth_bp
+
 app = Flask(__name__)
 
 # Set up the Neo4j connection
@@ -45,12 +47,10 @@ def get_events():
         for record in records:
             event = record["e"]
             event_list.append({
-                "id": event.id,
                 "name": event["name"],
                 "date": event["date"],
                 "location": event["location"]
             })
-        print("Event list:", event_list)
         return jsonify(event_list)
     except Exception as e:
         print("Error:", str(e))
@@ -68,6 +68,9 @@ def create_event():
     
     # Return the created event as a response
     return jsonify({"name": name, "date": date, "location": location}), 201
+
+# Register the auth blueprint
+app.register_blueprint(auth_bp, url_prefix="/auth")
 
 if __name__ == '__main__':
     app.run(debug=True, host= '0.0.0.0', port=4000)
