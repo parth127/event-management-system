@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useActionState } from "react";
 import {
   Form,
   FormControl,
@@ -19,7 +19,6 @@ import { useForm } from "react-hook-form";
 import { SignupFormSchema } from "../../app/lib/definitions";
 
 import { signup } from "@/actions/auth";
-import { useActionState } from "react";
 
 import { FormSuccess } from "../authForms/form-success";
 import { FormError } from "../authForms/form-error";

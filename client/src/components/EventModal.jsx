@@ -22,7 +22,7 @@ export default function EventModal({ open, onClose }) {
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="min-w-5xl max-w-6xl p-6 h-[32rem]">
+      <DialogContent className="min-w-5xl max-w-6xl p-6 min-h-[32rem]">
         <DialogHeader>
           <DialogTitle>Create New Event</DialogTitle>
         </DialogHeader>

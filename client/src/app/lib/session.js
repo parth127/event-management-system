@@ -61,3 +61,21 @@ export async function deleteSession() {
   const cookieStore = await cookies();
   cookieStore.delete("session");
 }
+
+export async function getUserIdFromSession() {
+  const session = (await cookies()).get("session")?.value;
+
+  if (!session) {
+    console.log("No session found");
+    return null;
+  }
+
+  const payload = await decrypt(session);
+
+  if (!payload?.userId) {
+    console.log("Invalid or expired session");
+    return null;
+  }
+
+  return payload.userId;
+}
