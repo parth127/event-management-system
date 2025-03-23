@@ -37,3 +37,17 @@ export const LoginFormSchema = z.object({
     })
     .trim(),
 });
+
+export const EventSchema = z.object({
+  title: z
+    .string()
+    .min(1, "Event title is required") // Title cannot be empty
+    .max(100, "Event title must be less than 100 characters"), // Maximum 100 characters
+  description: z
+    .string()
+    .min(1, "Event description is required") // Description cannot be empty
+    .max(500, "Event description must be less than 500 characters"), // Maximum 500 characters
+  location: z.string().min(1, "Location is required"), // Location cannot be empty
+  date: z.string().min(1, "Date is required"), // Date cannot be empty
+  time: z.string().min(1, "Time is required"), // Time cannot be empty
+});

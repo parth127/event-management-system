@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
   CalendarIcon,
   PlusIcon,
@@ -16,15 +17,16 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar";
 
 import { logout } from "@/actions/auth";
 import { useRouter } from "next/navigation";
 
+import EventModal from "./EventModal";
+
 export default function Header() {
+  const [isModalOpen, setModalOpen] = useState(false);
   const router = useRouter();
   async function handleLogout() {
     const result = await logout();
@@ -53,9 +55,13 @@ export default function Header() {
       </div>
       <div className="flex flex-row justify-baseline items-center gap-x-4">
         <div>
-          <Button className="rounded-md bg-[#3366FF] text-white hover:bg-[#2D5DD7] cursor-pointer hover:scale-105">
+          <Button
+            className="rounded-md bg-[#3366FF] text-white hover:bg-[#2D5DD7] cursor-pointer hover:scale-105"
+            onClick={() => setModalOpen(true)}
+          >
             <PlusIcon className="w-4 h-4" /> Create Event
           </Button>
+          <EventModal open={isModalOpen} onClose={() => setModalOpen(false)} />
         </div>
         <div>
           <Button

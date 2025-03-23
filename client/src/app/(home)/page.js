@@ -1,9 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import EventsSection from "@/components/EventsSection";
+import EventModal from "@/components/EventModal";
 
 export default function Home() {
+  const [isModalOpen, setModalOpen] = useState(false);
   return (
     <div className="flex w-full h-full items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
       <main className="h-lvh max-h-lvh w-full">
@@ -19,9 +22,16 @@ export default function Home() {
             </p>
           </div>
           <div>
-            <Button className="rounded-md bg-[#3366FF] text-white hover:bg-[#2D5DD7] cursor-pointer hover:scale-105 p-6">
+            <Button
+              className="rounded-md bg-[#3366FF] text-white hover:bg-[#2D5DD7] cursor-pointer hover:scale-105 p-6"
+              onClick={() => setModalOpen(true)}
+            >
               Create New Event
             </Button>
+            <EventModal
+              open={isModalOpen}
+              onClose={() => setModalOpen(false)}
+            />
           </div>
         </div>
         <div>
