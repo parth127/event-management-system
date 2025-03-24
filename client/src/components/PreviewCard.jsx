@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { CalendarIcon, OpacityIcon, ClockIcon } from "@radix-ui/react-icons";
 
 export default function EventPreview({ data }) {

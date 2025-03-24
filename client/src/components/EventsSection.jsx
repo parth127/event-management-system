@@ -1,30 +1,32 @@
 import EventCard from "./EventCard";
-
-const eventList = [
-  {
-    eventName: "Tech Conference 2024",
-    location: "Toronto, Canada",
-    date: "2025-03-29",
-    time: "12:00 PM",
-    image: "/images/Stock_1.jpg",
-  },
-  {
-    eventName: "InnoSummit 2025",
-    location: "Montreal, Canada",
-    date: "2025-04-01",
-    time: "8:00 AM",
-    image: "/images/Stock_2.jpeg",
-  },
-  {
-    eventName: "CodeCon Vancouver",
-    location: "Vancouver, Canada",
-    date: "2025-05-15",
-    time: "10:00 AM",
-    image: "/images/Stock_3.jpeg",
-  },
-];
+import React from "react";
+import { useEffect, useState } from "react";
 
 export default function EventsSection() {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("http://127.0.0.1:4000/events", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = await response.json();
+        setEvents(data);
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchEvents();
+  }, [events]);
+
   return (
     <div className="flex px-40 py-20 flex-col gap-y-8">
       <div className="flex flex-row justify-between items-center w-fit gap-x-8">
@@ -44,9 +46,11 @@ export default function EventsSection() {
       </div>
       <div>
         <div className="flex flex-row justify-between items-center gap-x-8">
-          {eventList.map((event, index) => {
-            return <EventCard key={index} event={event} />;
-          })}
+          {events.length > 0
+            ? events.map((event) => {
+                return <EventCard key={event.event_id} event={event} />;
+              })
+            : ""}
         </div>
       </div>
     </div>
