@@ -115,6 +115,7 @@ export default function EventsSection({ filters, sortBy }) {
       </div>
       <div>
         <div className="flex flex-row justify-between items-center gap-x-8">
+        <div className="grid grid-cols-3 gap-x-8">
           {loading ? (
             <p>Loading events...</p>
           ) : filteredEvents.length > 0 ? (
@@ -124,6 +125,8 @@ export default function EventsSection({ filters, sortBy }) {
           ) : (
             <p>No events found</p>
           )}
+        </div>
+          
         </div>
       </div>
     </div>
