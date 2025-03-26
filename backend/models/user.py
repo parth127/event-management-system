@@ -69,3 +69,15 @@ class User:
     @staticmethod
     def verify_password(stored_password, provided_password):
         return bcrypt.check_password_hash(stored_password, provided_password)
+
+    @staticmethod
+    def find_by_user_id(user_id):
+        query = "MATCH (u:User {user_id: $user_id}) RETURN u"
+        result, session = conn.query(query, parameters={"user_id": user_id})
+        record = result.single()
+        session.close()
+
+        if record:
+            user_data = record["u"]
+            return user_data
+        return None

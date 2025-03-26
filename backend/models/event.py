@@ -58,3 +58,16 @@ class Event:
                 "location": event["location"]
             })
         return event_list
+
+    @staticmethod
+    def get_event_creator(event_id):
+        query = """
+        MATCH (e:Event {event_id: $event_id})<-[:CREATED]-(u:User)
+        RETURN u.user_id AS creator_id
+        """
+        
+        result, session = conn.query(query, parameters={"event_id": event_id})
+        creator = result.single()
+        session.close()  # Close the session after fetching the result
+        
+        return creator['creator_id'] if creator else None

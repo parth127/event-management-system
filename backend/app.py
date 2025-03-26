@@ -4,6 +4,7 @@ from neo4j_connection import Neo4jConnection
 
 from routes.auth_routes import auth_bp
 from events.routes import event_bp
+from routes.rsvp_routes import rsvp_routes
 
 app = Flask(__name__)
 
@@ -26,6 +27,9 @@ app.register_blueprint(auth_bp, url_prefix="/auth")
 
 # Register the events blueprint
 app.register_blueprint(event_bp, url_prefix="/events")
+
+# Register the RSVP blueprint
+app.register_blueprint(rsvp_routes, url_prefix="/rsvp")
 
 if __name__ == '__main__':
     app.run(debug=True, host= '0.0.0.0', port=4000)
