@@ -4,9 +4,24 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import EventsSection from "@/components/EventsSection";
 import EventModal from "@/components/EventModal";
+import Filters from "@/components/Filters";
 
 export default function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
+  const [filters, setFilters] = useState({
+    startDate: null,
+    endDate: null
+  });
+  const [sortBy, setSortBy] = useState(null);
+
+  const handleFilterChange = (newFilters) => {
+    setFilters(newFilters);
+  };
+
+  const handleSortChange = (newSort) => {
+    setSortBy(newSort);
+  };
+
   return (
     <div className="flex w-full h-full items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
       <main className="h-lvh max-h-lvh w-full">
@@ -34,8 +49,19 @@ export default function Home() {
             />
           </div>
         </div>
-        <div>
-          <EventsSection />
+        <div className="flex flex-col px-40 py-10 gap-y-10">
+          <div>
+            <Filters 
+              onFilterChange={handleFilterChange}
+              onSortChange={handleSortChange}
+            />
+          </div>
+          <div>
+            <EventsSection 
+              filters={filters}
+              sortBy={sortBy}
+            />
+          </div>
         </div>
       </main>
     </div>

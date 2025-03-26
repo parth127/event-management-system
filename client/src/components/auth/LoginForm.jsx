@@ -79,7 +79,7 @@ export default function LoginForm() {
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="shadcn"
+                        placeholder="somebody@email.com"
                         {...field}
                         className="w-full"
                       />
@@ -89,7 +89,9 @@ export default function LoginForm() {
                 )}
               />
               {state?.errors?.email && (
-                <p className="text-red-500 mt-1">{state.errors.email}</p>
+                <p className="text-red-500 mt-1 text-sm">
+                  {state.errors.email}
+                </p>
               )}
             </div>
             <div>
@@ -116,7 +118,9 @@ export default function LoginForm() {
                 )}
               />
               {state?.errors?.password && (
-                <p className="text-red-500 mt-1">{state.errors.password}</p>
+                <p className="text-red-500 mt-1 text-sm">
+                  {state.errors.password}
+                </p>
               )}
             </div>
 
